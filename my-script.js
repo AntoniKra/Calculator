@@ -1,82 +1,105 @@
-const Button0 = document.getElementById("Button0");
-const Button1 = document.getElementById("Button1");
-const Button2 = document.getElementById("Button2");
-const Button3 = document.getElementById("Button3");
-const Button4 = document.getElementById("Button4");
-const Button5 = document.getElementById("Button5");
-const Button6 = document.getElementById("Button6");
-const Button7 = document.getElementById("Button7");
-const Button8 = document.getElementById("Button8");
-const Button9 = document.getElementById("Button9");
-const Dot = document.getElementById("Dot");
-const Equals = document.getElementById("Equals");
-const Add = document.getElementById("Add");
-const Subtract = document.getElementById("Subtract");
-const Multiply = document.getElementById("Multiply");
-const Divide = document.getElementById("Divide");
 const ResetButton = document.getElementById("Reset");
 const display = document.getElementById("display");
+const Backspace = document.getElementById("Backspace");
+const Equals = document.getElementById("Equals");
+const Zero = document.getElementById("Zero");
+const operators = ["/", "*", "+", "-"];
+const allButtons = document.querySelectorAll(".diplay-button");
+const dot = document.getElementById("dot");
 
-Button0.addEventListener("click", () => {
-  addToDisplay("0");
-});
-Button1.addEventListener("click", () => {
-  addToDisplay("1");
-});
-Button2.addEventListener("click", () => {
-  addToDisplay("2");
-});
-Button3.addEventListener("click", () => {
-  addToDisplay("3");
-});
-Button4.addEventListener("click", () => {
-  addToDisplay("4");
-});
-Button5.addEventListener("click", () => {
-  addToDisplay("5");
-});
-Button6.addEventListener("click", () => {
-  addToDisplay("6");
-});
-Button7.addEventListener("click", () => {
-  addToDisplay("7");
-});
-Button8.addEventListener("click", () => {
-  addToDisplay("8");
-});
-Button9.addEventListener("click", () => {
-  addToDisplay("9");
-});
-Add.addEventListener("click", () => {
-  addToDisplay("+");
-});
-Subtract.addEventListener("click", () => {
-  addToDisplay("-");
-});
-Divide.addEventListener("click", () => {
-  addToDisplay("/");
-});
-Multiply.addEventListener("click", () => {
-  addToDisplay("*");
-});
-Dot.addEventListener("click", () => {
-  addToDisplay(".");
-});
+dot.addEventListener("click", addDot);
+
 Equals.addEventListener("click", () => {
   calculate();
 });
 ResetButton.addEventListener("click", () => {
-  Reset();
+  reset();
+});
+Backspace.addEventListener("click", () => {
+  removeNumber();
+});
+Zero.addEventListener("click", addZero);
+
+allButtons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    addToDisplay(button.textContent);
+  });
 });
 
-function addToDisplay(number) {
-  display.value += number;
+function addToDisplay(sign) {
+  const lastSign = display.value[display.value.length - 1];
+  const lastValue = findLastValue();
+  if (operators.includes(lastSign) && operators.includes(sign)) {
+    display.value = display.value.slice(0, -1);
+  }
+
+  if (lastValue === "0" || sign === !".") {
+    display.value = display.value.slice(0, -1);
+  }
+  display.value += sign;
+
+  console.log(display.value.slice(0, -1));
 }
 
 function calculate() {
-  display.value = eval(display.value);
+  console.log(display.value);
+  try {
+    display.value = eval(display.value);
+  } catch {
+    display.value = "ERROR";
+  }
 }
 
-function Reset() {
+function reset() {
   display.value = "";
+}
+
+function removeNumber() {
+  display.value = display.value.slice(0, -1);
+}
+
+function addDot() {
+  const lastSign = display.value[display.value.length - 1];
+  if (display.value === "" || operators.includes(lastSign)) {
+    display.value += "0.";
+  } else {
+    const lastValue = findLastValue();
+
+    if (!lastValue.includes(".")) {
+      display.value += ".";
+    }
+  }
+}
+
+function addZero() {
+  const lastValue = findLastValue();
+
+  if (lastValue === "0") {
+    display.value += ".0";
+  } else {
+    display.value += "0";
+  }
+}
+
+function findLastValue() {
+  const lastPlus = display.value.lastIndexOf("+");
+  const lastMinus = display.value.lastIndexOf("-");
+  const lastMultiply = display.value.lastIndexOf("*");
+  const lastDivide = display.value.lastIndexOf("/");
+  const lastOperatorIndex = Math.max(
+    lastPlus,
+    lastMinus,
+    lastMultiply,
+    lastDivide
+  );
+
+  return display.value.slice(lastOperatorIndex + 1);
+}
+
+function aaaa() {
+  const lastValue = findLastValue();
+  if (lastValue === "0" || sign === !".") {
+    display.value = display.value.slice(0, -1);
+  }
+  display.value += sign;
 }

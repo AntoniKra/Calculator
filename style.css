@@ -6,7 +6,7 @@ main {
 
 .calculator {
   width: 400px;
-  height: 650px;
+  height: 640px;
   border: solid black 3px;
   border-radius: 10px;
   display: flex;
@@ -46,7 +46,7 @@ main {
   font-weight: 700;
   background-color: grey;
   color: aliceblue;
-  border: solid black 2px;
+  border: solid black 3px;
   cursor: pointer;
 }
 
