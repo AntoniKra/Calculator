@@ -15,6 +15,7 @@ main {
   background-color: skyblue;
   font-family: Arial, Helvetica, sans-serif;
   margin: 100px;
+  position: relative;
 }
 
 .display {
@@ -64,16 +65,15 @@ main {
 
 .history-panel {
   display: none;
-  width: 200px;
-  height: 300px;
-  overflow-y: auto; /* Dodaje pasek przewijania, gdy historia jest długa */
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 10px;
-  position: absolute; /* Aby "wyskoczył" nad kalkulatorem */
-  top: 50px; /* Przykładowa pozycja */
-  right: 10px; /* Przykładowa pozycja */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  height: 510px;
+  overflow-y: auto;
+  background-color: skyblue;
+  border-radius: 10px;
+  position: absolute;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .history-panel.visible {

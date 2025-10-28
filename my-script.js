@@ -110,12 +110,11 @@ function getHistory() {
 
   historyPanel.classList.toggle("visible");
 
-  historyPanel.innerHTML = "";
-
   if (history.length === 0) {
     historyPanel.innerHTML = "<p>Brak historii.</p>";
     return;
   }
+  historyPanel.innerHTML = "<p>Historia obliczeń:</p>";
 
   history.forEach((entry) => {
     const historyItem = document.createElement("p");
