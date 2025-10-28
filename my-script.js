@@ -3,9 +3,11 @@ const display = document.getElementById("display");
 const Backspace = document.getElementById("Backspace");
 const Equals = document.getElementById("Equals");
 const Zero = document.getElementById("Zero");
+const HistoryButton = document.getElementById("historyButton");
 const operators = ["/", "*", "+", "-"];
 const allButtons = document.querySelectorAll(".diplay-button");
 const dot = document.getElementById("dot");
+let history = [];
 
 dot.addEventListener("click", addDot);
 
@@ -19,6 +21,8 @@ Backspace.addEventListener("click", () => {
   removeNumber();
 });
 Zero.addEventListener("click", addZero);
+
+HistoryButton.addEventListener("click", getHistory);
 
 allButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -42,12 +46,17 @@ function addToDisplay(sign) {
 }
 
 function calculate() {
+  const expression = display.value;
+  const result = eval(display.value);
+
   console.log(display.value);
   try {
     display.value = eval(display.value);
   } catch {
     display.value = "ERROR";
   }
+  let operation = `${expression} = ${result}`;
+  history.push(operation);
 }
 
 function reset() {
@@ -96,10 +105,21 @@ function findLastValue() {
   return display.value.slice(lastOperatorIndex + 1);
 }
 
-function aaaa() {
-  const lastValue = findLastValue();
-  if (lastValue === "0" || sign === !".") {
-    display.value = display.value.slice(0, -1);
+function getHistory() {
+  const historyPanel = document.getElementById("historyPanel");
+
+  historyPanel.classList.toggle("visible");
+
+  historyPanel.innerHTML = "";
+
+  if (history.length === 0) {
+    historyPanel.innerHTML = "<p>Brak historii.</p>";
+    return;
   }
-  display.value += sign;
+
+  history.forEach((entry) => {
+    const historyItem = document.createElement("p");
+    historyItem.textContent = entry;
+    historyPanel.appendChild(historyItem);
+  });
 }

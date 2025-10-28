@@ -61,3 +61,21 @@ main {
 .keys .function-keys:hover {
   background-color: rgb(207, 56, 1);
 }
+
+.history-panel {
+  display: none;
+  width: 200px;
+  height: 300px;
+  overflow-y: auto; /* Dodaje pasek przewijania, gdy historia jest długa */
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: absolute; /* Aby "wyskoczył" nad kalkulatorem */
+  top: 50px; /* Przykładowa pozycja */
+  right: 10px; /* Przykładowa pozycja */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-panel.visible {
+  display: block;
+}
